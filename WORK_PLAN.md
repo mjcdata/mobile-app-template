@@ -2,17 +2,25 @@
 
 ## 1. Current Project Status
 
-**Current Phase:** Phase 1 — Foundation
+**Current Phase:** Phase 3 — State & Storage
 
-**Phase Status:** Not started
+**Phase Status:** Scope proposed; awaiting approval for dependency addition
 
-**Completed Setup**
-- GitHub repository created.
-- `AGENTS.md` committed.
+**Phase 1 verification (2026-10-26)**
+- Expo, React Native, TypeScript, and Expo Router scaffold implemented.
+- iPhone and web welcome screen user-verified; TypeScript passed as reported during Phase 1.
+- Android runtime remains unverified.
+- The 26 previously reported npm audit findings (7 moderate, 19 high) remain an open tracking item; no dependency fixes approved or applied. A fresh Phase 2 `npm ci --ignore-scripts` reported 8 findings (3 moderate, 5 high) with the unchanged lockfile. The count differs; no remediation or closure is claimed.
+- Latest lockfile commit verified: `98308d9f645e835c2887b45f0489c80acdf6bdbd` — “expo application running successfully”. Package manifests and lockfile remain unchanged in Phase 2.
+
+**Approved Phase 2 scope**
+- Home → Details → Back using the existing Expo Router stack.
+- Reusable accessible button and minimal shared colors/spacing.
+- Shared responsive layout; no new dependencies.
 
 **Next Action**
 
-Approve the Phase 1 implementation scope, then initialize Expo, React Native, TypeScript, and Expo Router.
+Approve the minimal Phase 3 scope and AsyncStorage dependency, then implement a persistent counter example. Current user priority is iPhone and web; Android runtime validation is deferred. Keep shared implementations compatible with Android.
 
 ---
 
@@ -30,8 +38,8 @@ Follow `AGENTS.md` for development standards, architecture, approval requirement
 
 | Phase | Focus | Status |
 |---|---|---|
-| 1 | Foundation | Not started |
-| 2 | UI & Navigation | Not started |
+| 1 | Foundation | Completed (Android unverified) |
+| 2 | UI & Navigation | Completed (iPhone/web user-verified) |
 | 3 | State & Storage | Not started |
 | 4 | Authentication | Not started |
 | 5 | Testing & Quality | Not started |
@@ -60,6 +68,17 @@ Follow `AGENTS.md` for development standards, architecture, approval requirement
 
 ### Phase 2 — UI & Navigation
 
+**Progress (2026-10-26):** Completed for the current iPhone/web scope; user confirmed both platforms work. Android runtime validation is deferred at the user’s request.
+- Added Home and Details stack routes, reusable Button and Screen components, and shared theme colors/spacing.
+- Button has a readable label, button role, disabled state, visible keyboard focus, pressed feedback, and a minimum 48-point height. Text scaling remains enabled.
+- Layout uses safe areas, scrolling, flexible width, and a 640-point content maximum for wider screens.
+- Details returns through navigation history, with a Home fallback when opened without history.
+- Checks passed: exact-lockfile install (`npm ci --ignore-scripts`), `npm run typecheck`, `npx expo export --platform all`, and `git diff --check`.
+- iOS, Android, and web bundles exported successfully. These are bundle checks, not device/browser runtime verification.
+- User verified Phase 2 on iPhone and web. Dedicated responsive layout, keyboard, VoiceOver, and TalkBack checks were not reported; Android runtime remains unverified. No lint or test scripts are configured.
+- Platform behavior to verify: iOS stack back gesture/header; Android system Back/header; web browser history and keyboard navigation. The shared Back button is available on all three.
+- No dependencies changed; `sources/` untouched.
+
 **Objective:** Establish reusable UI patterns and navigation.
 
 **Deliverables**
@@ -75,6 +94,8 @@ Follow `AGENTS.md` for development standards, architecture, approval requirement
 - Platform-specific differences are documented.
 
 ### Phase 3 — State & Storage
+
+**Proposed scope:** A counter on Home using React Hooks, persisted through AsyncStorage in a dedicated storage module, with loading/error handling and reset. Add only the AsyncStorage dependency after approval. Verify TypeScript and bundles; user checks persistence after reopening on iPhone and reloading web.
 
 **Objective:** Implement application state and persistent local storage.
 

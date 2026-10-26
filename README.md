@@ -30,16 +30,18 @@ Run the TypeScript check:
 npm run typecheck
 ```
 
-**Initial setup note:** The lockfile could not be generated in the repository-authoring environment. After `npm install`, commit the generated `package-lock.json` so future installs can use `npm ci`. Dependency installation and platform launches are not yet verified.
+The lockfile is committed. Use `npm ci` for reproducible installs. See `WORK_PLAN.md` for verification and open audit findings.
 
 ## Structure
 
 - `app/_layout.tsx`: Root Expo Router layout.
-- `app/index.tsx`: Minimal welcome screen.
+- `app/index.tsx` and `app/details.tsx`: Home and Details navigation.
+- `components/`: Shared accessible button and responsive screen layout.
+- `theme/`: Shared colors and spacing.
 - `app.json`: Expo application configuration.
 - `WORK_PLAN.md`: Roadmap and current project status.
 - `AGENTS.md`: Development guidelines.
 
 ## Status
 
-Phase 1 is in progress. The source scaffold is committed, but dependency installation, type checking, and iOS/Android/web runtime checks remain unverified.
+Phase 1 is complete with iPhone and web user verification; Android remains unverified. Phase 2 is user-verified on iPhone and web. Phase 3 scope is proposed; Android runtime validation is deferred. See `WORK_PLAN.md` for actual checks and remaining limitations.

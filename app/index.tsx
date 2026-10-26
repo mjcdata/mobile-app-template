@@ -1,28 +1,16 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { useRouter } from 'expo-router';
+import { Text } from 'react-native';
+import { Button } from '../components/Button';
+import { Screen, screenStyles } from '../components/Screen';
 
 export default function HomeScreen() {
+  const router = useRouter();
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Welcome</Text>
-      <Text style={styles.description}>Your mobile app template is ready.</Text>
-    </View>
+    <Screen>
+      <Text accessibilityRole="header" style={screenStyles.title}>Welcome</Text>
+      <Text style={screenStyles.description}>Your mobile app template is ready. Explore a second screen to try navigation.</Text>
+      <Button label="View details" onPress={() => router.push('/details')} />
+    </Screen>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 24,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: '700',
-  },
-  description: {
-    marginTop: 12,
-    fontSize: 16,
-    textAlign: 'center',
-  },
-});
