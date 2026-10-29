@@ -1,47 +1,61 @@
 # Mobile App Template
 
-A minimal, reusable Expo + React Native + TypeScript starter targeting iOS, Android, and web.
+A minimal, reusable Expo + React Native + TypeScript starter with Expo Router navigation.
+
+## Status and scope
+
+The current minimal template is complete by user decision on 2026-10-28. It includes Home → Details → Back navigation, a reusable accessible button, shared colors/spacing, and a responsive screen layout.
+
+The user verified the app on iPhone and web. Android remains configured and its bundle exported successfully, but Android runtime validation is deferred. Dedicated accessibility and responsive-layout testing remains unverified.
+
+Accounts, sign-in, persistent storage, cloud databases, linting, automated tests, and GitHub Actions are outside the completed scope. No backend service was selected or connected. See [WORK_PLAN.md](WORK_PLAN.md) for decisions, historical checks, and open limitations.
 
 ## Prerequisites
 
-- Node.js and npm
-- For iOS simulator: macOS with Xcode
-- For Android emulator: Android Studio
-- For physical devices: Expo Go or an appropriate development build, depending on SDK support
+- Node.js and npm compatible with the versions in `package.json`.
+- For physical iPhone testing: Expo Go or an appropriate development build, depending on SDK support.
+- For the iOS simulator: macOS with Xcode.
+- For optional Android testing: Android Studio/emulator or a compatible physical-device setup.
 
 ## Getting started
 
+From the repository directory:
+
 ```sh
-npm install
+npm ci
 npm start
 ```
 
-Use the Expo CLI prompts to launch a target, or run:
+The committed lockfile provides reproducible dependency versions. Use the Expo CLI prompts to open a target, or run:
 
 ```sh
 npm run ios
-npm run android
 npm run web
+# Optional; runtime unverified:
+npm run android
 ```
 
-Run the TypeScript check:
+## Checks
 
 ```sh
 npm run typecheck
+npx expo export --platform all
 ```
 
-The lockfile is committed. Use `npm ci` for reproducible installs. See `WORK_PLAN.md` for verification and open audit findings.
+Exporting bundles does not verify device or browser runtime behavior. No lint or automated-test scripts are configured. Historical dependency audit findings remain unresolved; see the work plan. No dependency remediation is implied by template completion.
 
 ## Structure
 
-- `app/_layout.tsx`: Root Expo Router layout.
-- `app/index.tsx` and `app/details.tsx`: Home and Details navigation.
-- `components/`: Shared accessible button and responsive screen layout.
-- `theme/`: Shared colors and spacing.
-- `app.json`: Expo application configuration.
-- `WORK_PLAN.md`: Roadmap and current project status.
+- `app/_layout.tsx`: Expo Router stack and header styling.
+- `app/index.tsx`: Home screen.
+- `app/details.tsx`: Details screen with Back and a Home fallback.
+- `components/Button.tsx`: Shared button with accessibility role/state and focus/pressed feedback.
+- `components/Screen.tsx`: Safe-area, scrollable, width-constrained layout.
+- `theme/index.ts`: Shared colors and spacing.
+- `app.json`: Expo configuration for iOS, Android, and web.
+- `WORK_PLAN.md`: Scope decisions, completed work, verification, and deferred work.
 - `AGENTS.md`: Development guidelines.
 
-## Status
+## Reuse
 
-Phase 1 is complete with iPhone and web user verification; Android remains unverified. Phase 2 is user-verified on iPhone and web. Phase 3 scope is proposed; Android runtime validation is deferred. See `WORK_PLAN.md` for actual checks and remaining limitations.
+Adapt the screens, theme, and Expo app identity for a new app. Discuss additional capabilities before adding them. Keep the template small; introduce storage, accounts, services, and infrastructure only when a concrete use case requires them.
